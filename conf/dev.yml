@@ -1,0 +1,28 @@
+
+
+rpc_config:
+  rpc_clients:
+    - rpc_client:
+      service_name: "museland.counter.svr"
+      endpoint: ":4317"
+      resolver: "museland-counter-headless-svr.develop.svc.cluster.local:8000"
+    - rpc_client:
+      service_name: "museland.idgen.svr"
+      endpoint: ":4317"
+      resolver: "museland-idgen-headless-svr.develop.svc.cluster.local:8000"
+    - rpc_client:
+      service_name: "museland.graph.svr"
+      endpoint: ":4317"
+      resolver: "museland-graph-headless-svr.develop.svc.cluster.local:8000"
+    - rpc_client:
+      service_name: "museland.tns.svr"
+      endpoint: ":4317"
+      resolver: "museland-tns-headless-svr.develop.svc.cluster.local:8000"
+    - rpc_client:
+      service_name: "museland.user.svr"
+      endpoint: ":4317"
+      resolver: "museland-user-headless-svr.develop.svc.cluster.local:8000"
+    - rpc_client:
+      service_name: "museland.search.svr"
+      endpoint: ":4317"
+      resolver: "museland-search-headless-svr.develop.svc.cluster.local:8000"

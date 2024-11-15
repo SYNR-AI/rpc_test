@@ -1,0 +1,80 @@
+syntax = "proto3";
+package search_svr;
+
+enum SearchMode {
+  SEARCH_MODE_UNKNOWN = 0;
+  SEARCH_MODE_PRECISE = 1;
+  SEARCH_MODE_FUZZY = 2;
+  SEARCH_MODE_PREFIX = 3;
+}
+
+enum SortType {
+  SORT_TYPE_UNKNOWN = 0;
+  SORT_TYPE_LATEST = 1;
+  SORT_TYPE_HOTTEST = 2;
+  SORT_TYPE_MOST_RELATED = 3;
+}
+
+message SearchItem4UgReq {
+  string keyword = 1;
+  int64 from = 2;
+  int32 limit = 3;
+  SearchMode search_mode = 4;
+  SortType sort_type = 5;
+}
+
+message SearchItem4UgResp {
+  BaseResp baseResp = 1;
+  repeated ItemIndexUg items = 2;
+  int64 total = 3;
+}
+
+message BaseResp{
+  int32 error_code = 1; // error code[1-99: common error code] 99+ custom error code
+  string error_message = 2; // error message
+}
+
+message ItemIndexUg {
+  int64 item_id = 1;
+  string title = 2;
+  repeated string content = 3;
+  repeated string hashtag = 4;
+  int64 create_time = 5;
+  repeated string muser_name = 6;
+  int32 chat_count = 7;
+}
+
+enum CommonErrorCode{
+  COMM_ERR_UNSPECIFIED = 0;
+  COMM_ERR_INVALID_PARAMS = 1;
+  COMM_ERR_NO_PERMISSION = 2;
+  COMM_ERR_NOT_FOUND = 3;
+  COMM_ERR_INVALID_STATE = 4;
+  COMM_ERR_NO_MODIFICATION = 5;
+  COMM_ERR_PORNOGRAPHIC_BLOCK = 6;
+  COMM_ERR_TNS_BLOCK = 7;
+  COMM_ERR_INTERNAL_ERROR = 99;
+}
+
+enum ScanOrderBy {
+  UNKNOWN = 0;
+  ASC = 1;
+  DESC = 2;
+}
+
+message TimeRange {
+  int64 start = 1;// >= millisecond
+  int64 end = 2;// <= millisecond
+}
+
+message ScanOption {
+  int64 cursor = 1;
+  int64 limit = 2;
+  ScanOrderBy order_by = 3;
+  TimeRange time_range = 4;
+}
+
+message ABExperiment {
+  string experiment_id = 1;
+  int32  variation_id = 2;
+}
